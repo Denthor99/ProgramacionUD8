@@ -5,7 +5,8 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.*;
-
+@NamedQuery(name = "verEventos",query = "SELECT ev FROM Eventos ev WHERE id = ?1")
+@Entity (name="Eventos")
 public class EventoMusical {
     /*
     @Id
@@ -21,7 +22,8 @@ public class EventoMusical {
     @Enumerated(EnumType.ORDINAL)
     private GenerosMusicales generos;
     private List <Artista> artistasConfirmados;
-    private transient Integer control;
+    @Transient
+    private Integer control;
 
     public EventoMusical(String nombreEvento, Timestamp fecha, BigDecimal recaudacion){
         this.nombreEvento = nombreEvento;
@@ -29,9 +31,10 @@ public class EventoMusical {
         this. recaudacion = recaudacion;
     }
 
-    public void EventoMusical(){
+    public EventoMusical(){
 
     }
+
 
     //¿Para que sirven los tipos...?
     //Date: Almacena una fecha, por ejemplo "27/04/2023"
