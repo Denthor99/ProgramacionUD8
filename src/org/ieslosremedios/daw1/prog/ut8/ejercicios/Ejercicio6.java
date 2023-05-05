@@ -1,9 +1,6 @@
 package org.ieslosremedios.daw1.prog.ut8.ejercicios;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
+import javax.persistence.*;
 
 public class Ejercicio6 {
     public static void main(String[] args) {
@@ -22,14 +19,25 @@ public class Ejercicio6 {
 
         // Modificamos el nombre del primer evento
         EventoMusical euroUpdate = em.find(EventoMusical.class,10);
-        euroUpdate.setNombreEvento(euroUpdate.getNombreEvento().toUpperCase());
+        if (euroUpdate!=null) {
+            euroUpdate.setNombreEvento(euroUpdate.getNombreEvento().toUpperCase());
+        } else{
+            System.out.println("Indice no encontrado");
+        }
 
         // Finalizamos la transacción
         em.getTransaction().commit();
 
-        // Inicializamos la transaccion
+        // Inicializamos la transacción (JPQL estático)
         em.getTransaction().begin();
-        Query updateEvento= em.createQuery("UPDATE Eventos ev SET ev.nombreEvento = UPPER(ev.nombreEvento) WHERE ev.id=11");
+        TypedQuery<EventoMusical> evenTyper=em.createNamedQuery("updateEventos", EventoMusical.class);
+        evenTyper.setParameter(1,11);
+
+        em.getTransaction().commit();
+
+        // Inicializamos la transaccion (JPQL Dinámico)
+        em.getTransaction().begin();
+        Query updateEvento= em.createQuery("UPDATE Eventos ev SET ev.nombreEvento = LOWER(ev.nombreEvento) WHERE ev.id=11");
         System.out.println("Registro actualizado: "+updateEvento.executeUpdate());
 
         // Finalizamos la transaccion

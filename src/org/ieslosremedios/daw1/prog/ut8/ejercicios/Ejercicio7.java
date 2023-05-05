@@ -1,9 +1,6 @@
 package org.ieslosremedios.daw1.prog.ut8.ejercicios;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 public class Ejercicio7 {
@@ -31,9 +28,15 @@ public class Ejercicio7 {
         em.remove(primerEvento);
         em.getTransaction().commit();
 
-        // Eliminacion el segundo evento usando JPQL
+        // Eliminación del segundo evento usando JPQL (estático)
         em.getTransaction().begin();
-        Query eliminaQuery = em.createQuery("DELETE FROM Eventos WHERE id=11");
+        TypedQuery<EventoMusical> deleteTyped= em.createQuery("borrarEventos", EventoMusical.class);
+        deleteTyped.setParameter(1,11);
+        em.getTransaction().commit();
+
+        // Eliminacion el segundo evento usando JPQL (dinámico)
+        em.getTransaction().begin();
+        Query eliminaQuery = em.createQuery("DELETE FROM Eventos WHERE id=:id");
         System.out.println("Registro eliminado: "+eliminaQuery.executeUpdate());
         em.getTransaction().commit();
     }

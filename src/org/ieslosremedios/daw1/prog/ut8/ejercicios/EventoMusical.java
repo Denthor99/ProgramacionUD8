@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.*;
-@NamedQuery(name = "verEventos",query = "SELECT ev FROM Eventos ev WHERE id = ?1")
+@NamedQuery(name = "borrarEventos",query = "DELTE FROM Eventos WHERE id = ?1")
 @Entity (name="Eventos")
 public class EventoMusical {
     /*
