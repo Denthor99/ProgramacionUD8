@@ -17,18 +17,13 @@ public class Ejercicio10 {
             Statement stmt = con.createStatement();
             System.out.println("Conexión exitosa");
             // Insertamos tres registros
-            String query1="INSERT INTO tienda.producto VALUES(1,'Piña','Colada','1','España')";
-            stmt.executeQuery(query1);
-            String query2="INSERT INTO tienda.producto VALUES(2,'Platano','Canario','50','España')";
-            stmt.executeQuery(query2);
-            String query3="INSERT INTO tienda.producto VALUES(3,'Tomate','Venezolano','40','Portugal')";
-            stmt.executeQuery(query3);
+            String delQuery="DELETE FROM producto";
+            System.out.println("Se han eliminado "+stmt.executeUpdate(delQuery)+" filas");
+            String insertQuery="INSERT INTO tienda.producto VALUES(1,'manzana','Manzanas golden','50','Francia'),(2,'pera','Peras conferencia','25','España'),(3,'uva','Uvas gourmet','20','España')";
+            System.out.println("Se han añadido "+ stmt.executeUpdate(insertQuery)+" filas");
+            String updateQuery="UPDATE producto SET precio=20 WHERE id=2";
+            System.out.println("Se ha actualizado "+ stmt.executeUpdate(updateQuery)+" filas");
 
-            String productos="SELECT * FROM tienda.producto ORDER BY id";
-            ResultSet resultado= stmt.executeQuery(productos);
-            while(resultado.next()){
-                System.out.println("Producto Num "+resultado.getInt("id")+": "+resultado.getString("nombre"));
-            }
             stmt.close();
             con.close();
         } catch (SQLException e) {

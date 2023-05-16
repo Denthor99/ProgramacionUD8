@@ -24,7 +24,7 @@ public class Ejercicio9 {
             String query3="INSERT INTO tienda.producto VALUES(3,'Tomate','Venezolano','40','Portugal')";
             stmt.executeQuery(query3);
 
-            String productos="SELECT * FROM tienda.producto ORDER BY id";
+            String productos="SELECT * FROM tienda.producto ORDER BY precio DESC";
             ResultSet resultado= stmt.executeQuery(productos);
             while(resultado.next()){
                 System.out.println("Producto Num "+resultado.getInt("id")+": "+resultado.getString("nombre"));
